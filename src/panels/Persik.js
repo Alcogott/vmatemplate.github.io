@@ -14,16 +14,18 @@ const osName = platform();
 
 const Persik = props => (
 	<Panel id={props.id}>
-		<PanelHeader
-			left={<PanelHeaderButton onClick={props.go} data-to="home">
-				{osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
-			</PanelHeaderButton>}
-		>
-			Persik
-		</PanelHeader>
-		<img className="Persik" src={persik} alt="Persik The Cat"/>
+	  <PanelHeader
+		left={
+		  <PanelHeaderButton onClick={() => props.go} data-to='home'>
+			{osName === IOS ? <Icon28ChevronBack /> : <Icon24Back />}
+		  </PanelHeaderButton>
+		}
+	  >
+		Persik
+	  </PanelHeader>
+	  <img className='Persik' src={persik} alt='Persik The Cat' />
 	</Panel>
-);
+  )
 
 Persik.propTypes = {
 	id: PropTypes.string.isRequired,
