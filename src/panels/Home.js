@@ -7,9 +7,18 @@ import Div from '@vkontakte/vkui/dist/components/Div/Div'
 
 import './Persik.css'
 
+const backgroundImage = 'https://i.pinimg.com/originals/f2/cd/cd/f2cdcd38244b172234eb35cc408d0a13.jpg'
+
 const Home = ({ id, go, fetchedUser }) => (
   <Panel id={id}>
-    {fetchedUser &&
+    <div
+      style={{
+        width: '700px',
+        height: '500px',
+        backgroundImage: `url(${backgroundImage})`
+      }}
+    >
+      {fetchedUser &&
       <Group title='Navigation Example'>
         <Div>
           <h1 id='greeting'> Привет {`${fetchedUser.first_name}`} </h1>
@@ -25,6 +34,7 @@ const Home = ({ id, go, fetchedUser }) => (
           <button id='goto' data-to='persik' onClick={go}> Go </button>
         </Div>
       </Group>}
+    </div>
   </Panel>
 )
 
