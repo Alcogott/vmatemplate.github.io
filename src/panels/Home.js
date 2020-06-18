@@ -10,19 +10,19 @@ const axios = require('axios')
 let data = {}
 axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
   .then(function (response) {
-    data = response.data.startPage;
+    data = response.data.startPage
   })
   .catch(function (error) {
-    console.log(error);
+    console.log(error)
   })
-  
+
 const Home = ({ id, go, fetchedUser }) => (
   <Panel id={id}>
     <div
       style={{
         backgroundImage: `url(${data.image})`,
         height: '88vh'
-        
+
       }}
     >
       {fetchedUser &&
