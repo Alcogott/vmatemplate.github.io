@@ -11,7 +11,6 @@ import './panels/Persik.css'
 const App = () => {
   const [activePanel, setActivePanel] = useState('home')
   const [fetchedUser, setUser] = useState(null)
-  //   const user = bridge.send('VKWebAppGetUserInfo', {})
   const [popout, setPopout] = useState(<ScreenSpinner size='large' />)
 
   useEffect(() => {

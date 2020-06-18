@@ -7,6 +7,7 @@
 
 #greeting {
   text-align: center;
+  color: aliceblue;
 }
 
 .StartScreen {
@@ -29,5 +30,4 @@
 
 body{
   background: url('https://sun9-72.userapi.com/c855336/v855336345/13ca7f/4dztLT5lb_A.jpg');
-  background-size: 100%;
 }

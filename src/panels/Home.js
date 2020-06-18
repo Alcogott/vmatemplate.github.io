@@ -2,38 +2,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel'
 import Group from '@vkontakte/vkui/dist/components/Group/Group'
-// import Button from '@vkontakte/vkui/dist/components/Button/Button'
 import Div from '@vkontakte/vkui/dist/components/Div/Div'
 
 import './Persik.css'
 
-const backgroundImage = 'https://i.pinimg.com/originals/f2/cd/cd/f2cdcd38244b172234eb35cc408d0a13.jpg'
+const backgroundImage = 'https://sun9-72.userapi.com/c855336/v855336345/13ca7f/4dztLT5lb_A.jpg'
 
 const Home = ({ id, go, fetchedUser }) => (
   <Panel id={id}>
     <div
       style={{
-        width: '700px',
-        height: '500px',
-        backgroundImage: `url(${backgroundImage})`
+        backgroundImage: `url(${backgroundImage})`,
+        height: '88.5vh',
       }}
     >
       {fetchedUser &&
-      <Group title='Navigation Example'>
-        <Div>
-          <h1 id='greeting'> Привет {`${fetchedUser.first_name}`} </h1>
-          <br />
-          <div className='StartScreen'>
-            <h4 id='greeting'> Title </h4>
+        <Group title='Navigation Example'>
+          <Div>
+            <h1 id='greeting'> Привет {`${fetchedUser.first_name}`} </h1>
             <br />
-            <h4 id='greeting'> Description </h4>
-          </div>
-          {/* <Button size='xl' level='2' onClick={go} data-to='persik'>
-            Go
-          </Button> */}
-          <button id='goto' data-to='persik' onClick={go}> Go </button>
-        </Div>
-      </Group>}
+            <div className='StartScreen'>
+              <h4 id='greeting'> Title </h4>
+              <br />
+              <h4 id='greeting'> Description </h4>
+            </div>
+            <button id='goto' data-to='persik' onClick={go}> Go </button>
+          </Div>
+        </Group>}
     </div>
   </Panel>
 )
