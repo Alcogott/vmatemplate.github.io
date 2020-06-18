@@ -6,27 +6,36 @@ import Div from '@vkontakte/vkui/dist/components/Div/Div'
 
 import './Persik.css'
 
-const backgroundImage = 'https://sun9-72.userapi.com/c855336/v855336345/13ca7f/4dztLT5lb_A.jpg'
+const axios = require('axios')
+let data = {}
+axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
+  .then(function (response) {
+    data = response.data.startPage
+  })
+  .catch(function (error) {
+    console.log(error)
+  })
 
 const Home = ({ id, go, fetchedUser }) => (
   <Panel id={id}>
     <div
       style={{
-        backgroundImage: `url(${backgroundImage})`,
-        height: '88.5vh'
+        backgroundImage: `url(${data.image})`,
+        height: '88vh'
+
       }}
     >
       {fetchedUser &&
         <Group title='Navigation Example'>
           <Div>
-            <h1 id='greeting'> Привет {`${fetchedUser.first_name}`} </h1>
+            <h1 id='greeting' className='one'> Привет, {`${fetchedUser.first_name}`} </h1>
             <br />
             <div className='StartScreen'>
-              <h4 id='greeting'> Title </h4>
+              <h4 id='greeting'> {`${data.title}`} </h4>
               <br />
-              <h4 id='greeting'> Description </h4>
+              <h4 id='greeting'> {`${data.description}`} </h4>
             </div>
-            <button id='goto' data-to='persik' onClick={go}> Go </button>
+            <button id='goto' data-to='persik' onClick={go}> Начать </button>
           </Div>
         </Group>}
     </div>

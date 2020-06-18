@@ -5,9 +5,12 @@
   margin: 20px auto;
 }
 
+.one {
+  margin-top: 10%;
+}
+
 #greeting {
   text-align: center;
-  color: aliceblue;
 }
 
 .StartScreen {
@@ -17,7 +20,7 @@
 
 #goto {
   margin-left: 5%;
-  margin-top: 10%;
+  margin-top: 35%;
   height: 50px;
   width: 90%;
   background-color: darkred;
