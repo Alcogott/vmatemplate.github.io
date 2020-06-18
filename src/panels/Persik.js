@@ -14,70 +14,53 @@ import './Persik.css'
 const osName = platform()
 
 const Persik = (props) => {
-  const [answers, setAnswers] = useState(null)
-  const [checkedValue, setCheckedValue] = useState(null)
-  const [questions, setQuestions] = useState(0)
+  const [answers, setAnswers] = useState([])
+  const [checkedValue, setCheckedValue] = useState({ answerid: '' })
+  const [questions, setQuestions] = useState([])
+  const [usersAnswers, setUserAnswer] = useState([{ questionid: '', answerid: '' }])
+  const i = 0
 
-  useEffect(() => {
-    async function getData () {
-      axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
-        .then(function (response) {
-          console.log(response.data.questions)
-          setQuestions(response.data.questions)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
-    }
-    getData()
-  }, [])
-  function getNextQuestion () {
-    setAnswers(answers.push(checkedValue))
+  const getNextQuestion = () => {
+    setUserAnswer([...usersAnswers, { questionid: questions.id, answerid: checkedValue }])
   }
 
+  useEffect(() => {
+    axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
+      .then(res => {
+        setQuestions(res.data.questions[i])
+        setAnswers(res.data.questions[i].answers)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  })
   return (
     <Panel id={props.id}>
       <PanelHeader
         left={
-          <PanelHeaderButton onClick={() => props.go} data-to='home'>
+          <PanelHeaderButton onClick={(e) => props.go(e)} data-to='home'>
             {osName === IOS ? <Icon28ChevronBack /> : <Icon24Back />}
           </PanelHeaderButton>
         }
       >
-        Вопрос 1
+        Вопрос {`${i + 1}`}
       </PanelHeader>
       <Div>
-        <h1 id='greeting' className='one'> {`${questions[0].title}`} </h1>
+        <h1 id='greeting' className='one'> {`${questions.title}`}</h1>
         <br />
         <div className='StartScreen'>
           <div className='radio'>
-            <label>
-              <p className='answer'>
-                <input id='loh' name='radiob' type='radio' value={`${questions[0].answers[0].title}`} onChange={setCheckedValue(this.value)} />
-                {`${questions[0].answers[0].title}`}
-              </p>
-            </label>
-            <label>
-              <p className='answer'>
-                <input id='pidor' name='radiob' type='radio' value={`${questions[0].answers[1].title}`} onChange={setCheckedValue(this.value)} />
-                {`${questions[0].answers[1].title}`}
-              </p>
-            </label>
-            <label>
-              <p className='answer'>
-                <input id='natural' name='radiob' type='radio' value={`${questions[0].answers[2].title}`} onChange={setCheckedValue(this.value)} />
-                {`${questions[0].answers[2].title}`}
-              </p>
-            </label>
-            <label>
-              <p className='answer'>
-                <input id='devka' name='radiob' type='radio' value={`${questions[0].answers[3].title}`} onChange={setCheckedValue(this.value)} />
-                {`${questions[0].answers[3].title}`}
-              </p>
-            </label>
+            {answers.map(answer => (
+              <label key={answer.id}>
+                <p className='answer'>
+                  <input id={`${answer.id}`} name='radiob' type='radio' value={`${answer.title}`} onChange={() => setCheckedValue(answer.id)} />
+                  {`${answer.title}`}
+                </p>
+              </label>
+            ))}
           </div>
         </div>
-        <button id='goto2' data-to='question2' onClick={getNextQuestion()}> Ответить </button>
+        <button id='goto2' data-to='persik' onClick={() => getNextQuestion()}> Ответить </button>
       </Div>
 
     </Panel>
