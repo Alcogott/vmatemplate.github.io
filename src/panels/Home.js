@@ -13,7 +13,7 @@ const Home = ({ id, go, fetchedUser }) => (
     <div
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        height: '88.5vh',
+        height: '88.5vh'
       }}
     >
       {fetchedUser &&
