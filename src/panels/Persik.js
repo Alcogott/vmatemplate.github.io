@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { platform, IOS } from '@vkontakte/vkui'
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel'
@@ -14,24 +14,28 @@ import './Persik.css'
 const osName = platform()
 
 const Persik = (props) => {
-  const [answers,setAnswers] = useState(null)
-  const [checkedValue,setCheckedValue] = useState(null)
-  const [questions,setQuestions] = useState(null)
+  const [answers, setAnswers] = useState(null)
+  const [checkedValue, setCheckedValue] = useState(null)
+  const [questions, setQuestions] = useState(0)
 
-  axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
-  .then(function (response) {
-    setQuestions(response.data.questions)
-    console.log(questions)
-  })
-  .catch(function (error) {
-    console.log(error)
-  })
-
+  useEffect(() => {
+    async function getData () {
+      axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
+        .then(function (response) {
+          console.log(response.data.questions)
+          setQuestions(response.data.questions)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+    getData()
+  }, [])
   function getNextQuestion () {
     setAnswers(answers.push(checkedValue))
   }
 
-  return(
+  return (
     <Panel id={props.id}>
       <PanelHeader
         left={
@@ -49,25 +53,25 @@ const Persik = (props) => {
           <div className='radio'>
             <label>
               <p className='answer'>
-                <input id='loh' name='radiob' type='radio' value={`${questions[0].answers[0].title}`} onChange={setCheckedValue(this.value)} /> 
+                <input id='loh' name='radiob' type='radio' value={`${questions[0].answers[0].title}`} onChange={setCheckedValue(this.value)} />
                 {`${questions[0].answers[0].title}`}
               </p>
             </label>
             <label>
               <p className='answer'>
-                <input id='pidor' name='radiob' type='radio' value={`${questions[0].answers[1].title}`} onChange={setCheckedValue(this.value)} /> 
+                <input id='pidor' name='radiob' type='radio' value={`${questions[0].answers[1].title}`} onChange={setCheckedValue(this.value)} />
                 {`${questions[0].answers[1].title}`}
               </p>
             </label>
             <label>
               <p className='answer'>
-                <input id='natural' name='radiob' type='radio' value={`${questions[0].answers[2].title}`} onChange={setCheckedValue(this.value)} /> 
+                <input id='natural' name='radiob' type='radio' value={`${questions[0].answers[2].title}`} onChange={setCheckedValue(this.value)} />
                 {`${questions[0].answers[2].title}`}
               </p>
             </label>
             <label>
               <p className='answer'>
-                <input id='devka' name='radiob' type='radio' value={`${questions[0].answers[3].title}`} onChange={setCheckedValue(this.value)} /> 
+                <input id='devka' name='radiob' type='radio' value={`${questions[0].answers[3].title}`} onChange={setCheckedValue(this.value)} />
                 {`${questions[0].answers[3].title}`}
               </p>
             </label>
@@ -77,12 +81,12 @@ const Persik = (props) => {
       </Div>
 
     </Panel>
-    )
-  }
+  )
+}
 
-  Persik.propTypes = {
-    id: PropTypes.string.isRequired,
-    go: PropTypes.func.isRequired
-  }
+Persik.propTypes = {
+  id: PropTypes.string.isRequired,
+  go: PropTypes.func.isRequired
+}
 
 export default Persik
