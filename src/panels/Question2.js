@@ -12,7 +12,7 @@ import './Persik.css'
 
 const osName = platform()
 
-const Question2 = (props, {go}) => (
+const Question2 = (props, { go }) => (
   <Panel id={props.id}>
     <PanelHeader
       left={
@@ -24,15 +24,15 @@ const Question2 = (props, {go}) => (
       Вопрос 2
     </PanelHeader>
     <Div>
-        <h1 id='greeting' className='one'> Привет </h1>
+      <h1 id='greeting' className='one'> Привет </h1>
+      <br />
+      <div className='StartScreen'>
+        <h4 id='greeting'> Это второй вопрос </h4>
         <br />
-        <div className='StartScreen'>
-          <h4 id='greeting'> Это второй вопрос </h4>
-          <br />
-          <h4 id='greeting'> Держу в курсе </h4>
-          </div>
-        {/* <button id='goto' data-to='persik' onClick={go}> Начать </button> */}
-      </Div>
+        <h4 id='greeting'> Держу в курсе </h4>
+      </div>
+      {/* <button id='goto' data-to='persik' onClick={go}> Начать </button> */}
+    </Div>
 
   </Panel>
 )
