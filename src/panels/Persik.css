@@ -31,6 +31,30 @@
   font-size: larger;
 }
 
-body{
-  background: url('https://sun9-72.userapi.com/c855336/v855336345/13ca7f/4dztLT5lb_A.jpg');
+#goto2 {
+  margin-left: 5%;
+  margin-top: 18%;
+  height: 50px;
+  width: 90%;
+  background-color: darkred;
+  color: aliceblue;
+  border-radius: 20px;
+  border-color: rgb(207, 5, 5);
+  padding: .8em 1em calc(.8em + 3px);
+  font-size: larger;
+}
+
+.radio {
+  display: flex;
+  flex-flow: column;
+  margin-left: 38%;
+}
+
+.answer {
+  width: 50%;
+  border: black;
+  border-style: solid;
+  border-radius: 15px;
+  background-color: brown;
+  color: aliceblue;
 }
