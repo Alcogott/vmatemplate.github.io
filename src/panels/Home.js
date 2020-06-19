@@ -22,7 +22,6 @@ const Home = ({ id, go, fetchedUser }) => (
       style={{
         backgroundImage: `url(${data.image})`,
         height: '88vh'
-
       }}
     >
       {fetchedUser &&

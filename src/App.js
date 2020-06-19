@@ -6,6 +6,7 @@ import '@vkontakte/vkui/dist/vkui.css'
 
 import Home from './panels/Home'
 import Persik from './panels/Persik'
+import Final from './panels/Final'
 import './panels/Persik.css'
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
     <View className='main' activePanel={activePanel} popout={popout}>
       <Home id='home' fetchedUser={fetchedUser} go={go} />
       <Persik id='persik' go={go} />
+      <Final id='final' go={go} />
     </View>
   )
 }
