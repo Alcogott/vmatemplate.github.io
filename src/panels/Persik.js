@@ -19,7 +19,8 @@ class Persik extends React.Component {
     this.state = {
       questions: [],
       usersAnswers: [],
-      checkedValue: {}
+      checkedValue: {},
+      receivedData: {},
     }
   }
 
@@ -39,8 +40,13 @@ class Persik extends React.Component {
     })
   }
 
+  childFunction=(e)=>{
+    e.preventDefault();
+    this.props.functionCallFromParent(this.state.receivedData);
+  }
+
   render () {
-    const renderedQuestions = this.state.questions.map((question) => {
+    const renderedQuestions= this.state.questions.map((question) => {
       return (
         <div key={question.id}>
           <h1 id='greeting' className='one'>{question.title}</h1>
@@ -59,6 +65,7 @@ class Persik extends React.Component {
         </div>
       )
     })
+
     return (
       <Panel id={this.props.id}>
         <PanelHeader
@@ -84,11 +91,10 @@ class Persik extends React.Component {
                 currentQuestion: this.state.currentQuestion + 1
               })
             } else {
-              console.log(this.state.usersAnswers)
               axios.post('https://dmitrii-shulgin.noname.team:8443/quiz/1/think', {
                 responses: this.state.usersAnswers
               }).then((res) => {
-                console.log(res.data)
+                this.setState({receivedData: res.data})
               })
               this.props.go(e)
             }
@@ -99,72 +105,5 @@ class Persik extends React.Component {
     )
   }
 }
-
-// const Persik = (props) => {
-
-//   const [answers, setAnswers] = useState([])
-//   const [checkedValue, setCheckedValue] = useState('')
-//   const [questions, setQuestions] = useState([])
-//   const [usersAnswers, setUserAnswer] = useState([])
-//   const [questArrLength, setLength] = useState (0)
-//   const [questionIndex,setIndex] = useState(0)
-//   let j = questionIndex
-
-//   const getNextQuestion = () => {
-//     if (questionIndex < questions){
-//       // console.log(checkedValue)
-//       setUserAnswer([...usersAnswers, { questionid: questions.id, answerid: checkedValue }])
-//       j+=1
-//       if(j <= questArrLength-1){
-//         setIndex(j)
-//       }
-//     }
-//   }
-
-//   useEffect(() => {
-//     axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
-//       .then(res => {
-//         setQuestions(res.data.questions)
-//       })
-//       .catch(err => {
-//         console.log(err)
-//       })
-//   })
-
-//   console.log('questions', questions[0].title)
-
-//   return (
-//     <Panel id={props.id}>
-//       <PanelHeader
-//         left={
-//           <PanelHeaderButton onClick={(e) => props.go(e)} data-to='home'>
-//             {osName === IOS ? <Icon28ChevronBack /> : <Icon24Back />}
-//           </PanelHeaderButton>
-//         }
-//       >
-//         {console.log(usersAnswers)}
-//         Вопрос {`${questionIndex + 1}`}
-//       </PanelHeader>
-//       <Div>
-// <h1 id='greeting' className='one'> {`${questions.title}`}</h1>
-//         <br />
-// <div className='StartScreen'>
-//   <div className='radio'>
-//             {answers.map(answer => (
-// <label key={answer.id}>
-//   <p className='answer'>
-//     <input id={`${answer.id}`} name='radiob' type='radio' value={`${answer.title}`} onChange={() => setCheckedValue(answer.id)} />
-//     {`${answer.title} ${questions.id}`}
-//   </p>
-// </label>
-//             ))}
-//           </div>
-//         </div>
-//         <button id='goto2' data-to='final' onClick={() => getNextQuestion()}> Ответить </button>
-//       </Div>
-
-//     </Panel>
-//   )
-// }
 
 export default Persik

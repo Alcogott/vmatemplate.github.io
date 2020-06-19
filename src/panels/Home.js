@@ -7,47 +7,54 @@ import axios from 'axios'
 
 import './Persik.css'
 
-let data = {}
-axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
-  .then(function (response) {
-    data = response.data.startPage
-  })
-  .catch(function (error) {
-    console.log(error)
-  })
+class Home extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      data: {}
+    }
+  }
 
-const Home = ({ id, go, fetchedUser }) => (
-  <Panel id={id}>
-    <div
-      style={{
-        backgroundImage: `url(${data.image})`,
-        height: '88vh'
-      }}
-    >
-      {fetchedUser &&
-        <Group title='Navigation Example'>
-          <Div>
-            <h1 id='greeting' className='one'> Привет, {`${fetchedUser.first_name}`} </h1>
-            <br />
-            <div className='StartScreen'>
-              <h4 id='greeting'> {`${data.title}`} </h4>
+  static get propTypes () {
+    return {
+      go: PropTypes.any,
+      id: PropTypes.func,
+      fetchedUser: PropTypes.any
+    }
+  }
+
+  async componentDidMount () {
+    const response = await axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
+    this.setState({
+      data: response.data.startPage
+    })
+  }
+
+  render(){
+    return(
+      <Panel id={this.props.id}>
+      <div
+        style={{
+          backgroundImage: `url(${this.state.data.image})`,
+          height: '88vh'
+        }}
+      >
+        {this.props.fetchedUser &&
+          <Group title='Navigation Example'>
+            <Div>
+              <h1 id='greeting' className='one'> Привет, {`${this.props.fetchedUser.first_name}`} </h1>
               <br />
-              <h4 id='greeting'> {`${data.description}`} </h4>
-            </div>
-            <button id='goto' data-to='persik' onClick={go}> Начать </button>
-          </Div>
-        </Group>}
-    </div>
-  </Panel>
-)
-
-Home.propTypes = {
-  id: PropTypes.string.isRequired,
-  go: PropTypes.func.isRequired,
-  fetchedUser: PropTypes.shape({
-    first_name: PropTypes.string,
-    last_name: PropTypes.string
-  })
+              <div className='StartScreen'>
+                <h4 id='greeting'> {`${this.state.data.title}`} </h4>
+                <br />
+                <h4 id='greeting'> {`${this.state.data.description}`} </h4>
+              </div>
+              <button id='goto' data-to='persik' onClick={this.props.go}> Начать </button>
+            </Div>
+          </Group>}
+      </div>
+    </Panel>
+    )
+  }
 }
-
 export default Home
