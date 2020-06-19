@@ -35,8 +35,8 @@ class App extends React.Component {
     })
   }
 
-  parentFunction=(dataFromChild) => {
-    this.setState({ value: dataFromChild })
+  updateData = (data) => {
+    this.setState({ value: data })
   }
 
   go = e => {
@@ -44,12 +44,11 @@ class App extends React.Component {
   }
 
   render () {
-    console.log(this.state.value)
     return (
       <View className='main' activePanel={this.state.activePanel} popout={this.state.popout}>
         <Home id='home' fetchedUser={this.state.fetchedUser} go={this.go} />
-        <Persik id='persik' functionCallFromParent={this.parentFunction.bind(this)} go={this.go} />
-        <Final id='final' valueFromParent={this.state.value_key} go={this.go} />
+        <Persik id='persik' updateData={this.updateData} go={this.go} />
+        <Final id='final' val={this.state.value} go={this.go} />
       </View>
     )
   }

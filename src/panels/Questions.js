@@ -28,7 +28,7 @@ class Persik extends React.Component {
     return {
       go: PropTypes.any,
       id: PropTypes.func,
-      functionCallFromParent: PropTypes.func
+      updateData: PropTypes.func
     }
   }
 
@@ -39,11 +39,6 @@ class Persik extends React.Component {
       questions: response.data.questions,
       currentQuestion: 0
     })
-  }
-
-  childFunction=(e) => {
-    e.preventDefault()
-    this.props.functionCallFromParent(this.state.receivedData)
   }
 
   render () {
@@ -96,9 +91,8 @@ class Persik extends React.Component {
                 responses: this.state.usersAnswers
               }).then((res) => {
                 this.setState({ receivedData: res.data })
-                console.log(this.state.receivedData)
               })
-              this.childFunction.bind(this)
+              this.props.updateData(this.state.receivedData)
               this.props.go(e)
             }
           }}

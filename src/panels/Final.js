@@ -22,8 +22,8 @@ class Final extends React.Component {
   static get propTypes () {
     return {
       go: PropTypes.any,
-      id: PropTypes.func,
-      receivedData: PropTypes.object
+      id: PropTypes.func
+      // val: PropTypes.object
     }
   }
 
@@ -37,10 +37,10 @@ class Final extends React.Component {
             </PanelHeaderButton>
           }
         >
-          Title
+          Final
         </PanelHeader>
         <Div>
-          {this.props.receivedData}
+          <h1 id='greeting'>Result</h1>
         </Div>
       </Panel>
     )
