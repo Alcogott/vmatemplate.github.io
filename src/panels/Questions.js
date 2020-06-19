@@ -20,14 +20,15 @@ class Persik extends React.Component {
       questions: [],
       usersAnswers: [],
       checkedValue: {},
-      receivedData: {},
+      receivedData: {}
     }
   }
 
   static get propTypes () {
     return {
       go: PropTypes.any,
-      id: PropTypes.func
+      id: PropTypes.func,
+      functionCallFromParent: PropTypes.func
     }
   }
 
@@ -40,13 +41,13 @@ class Persik extends React.Component {
     })
   }
 
-  childFunction=(e)=>{
-    e.preventDefault();
-    this.props.functionCallFromParent(this.state.receivedData);
+  childFunction=(e) => {
+    e.preventDefault()
+    this.props.functionCallFromParent(this.state.receivedData)
   }
 
   render () {
-    const renderedQuestions= this.state.questions.map((question) => {
+    const renderedQuestions = this.state.questions.map((question) => {
       return (
         <div key={question.id}>
           <h1 id='greeting' className='one'>{question.title}</h1>
@@ -94,8 +95,10 @@ class Persik extends React.Component {
               axios.post('https://dmitrii-shulgin.noname.team:8443/quiz/1/think', {
                 responses: this.state.usersAnswers
               }).then((res) => {
-                this.setState({receivedData: res.data})
+                this.setState({ receivedData: res.data })
+                console.log(this.state.receivedData)
               })
+              this.childFunction.bind(this)
               this.props.go(e)
             }
           }}

@@ -5,7 +5,7 @@ import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenS
 import '@vkontakte/vkui/dist/vkui.css'
 
 import Home from './panels/Home'
-import Persik from './panels/Persik'
+import Persik from './panels/Questions'
 import Final from './panels/Final'
 import './panels/Persik.css'
 
@@ -15,7 +15,8 @@ class App extends React.Component {
     this.state = {
       activePanel: 'home',
       fetchedUser: {},
-      popout: <ScreenSpinner size='large' />,      
+      popout: <ScreenSpinner size='large' />,
+      value: {}
     }
   }
 
@@ -27,23 +28,28 @@ class App extends React.Component {
         document.body.attributes.setNamedItem(schemeAttribute)
       }
     })
-      const user = await bridge.send('VKWebAppGetUserInfo')
-      this.setState({
-        fetchedUser: user,
-        popout: null
-      })
+    const user = await bridge.send('VKWebAppGetUserInfo')
+    this.setState({
+      fetchedUser: user,
+      popout: null
+    })
+  }
+
+  parentFunction=(dataFromChild) => {
+    this.setState({ value: dataFromChild })
   }
 
   go = e => {
-    this.setState({activePanel:e.currentTarget.dataset.to})
+    this.setState({ activePanel: e.currentTarget.dataset.to })
   }
 
-  render(){
-    return(
+  render () {
+    console.log(this.state.value)
+    return (
       <View className='main' activePanel={this.state.activePanel} popout={this.state.popout}>
         <Home id='home' fetchedUser={this.state.fetchedUser} go={this.go} />
-        <Persik id='persik' go={this.go} />
-        <Final id='final' go={this.go} />
+        <Persik id='persik' functionCallFromParent={this.parentFunction.bind(this)} go={this.go} />
+        <Final id='final' valueFromParent={this.state.value_key} go={this.go} />
       </View>
     )
   }

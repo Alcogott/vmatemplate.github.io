@@ -30,30 +30,30 @@ class Home extends React.Component {
     })
   }
 
-  render(){
-    return(
+  render () {
+    return (
       <Panel id={this.props.id}>
-      <div
-        style={{
-          backgroundImage: `url(${this.state.data.image})`,
-          height: '88vh'
-        }}
-      >
-        {this.props.fetchedUser &&
-          <Group title='Navigation Example'>
-            <Div>
-              <h1 id='greeting' className='one'> Привет, {`${this.props.fetchedUser.first_name}`} </h1>
-              <br />
-              <div className='StartScreen'>
-                <h4 id='greeting'> {`${this.state.data.title}`} </h4>
+        <div
+          style={{
+            backgroundImage: `url(${this.state.data.image})`,
+            height: '88vh'
+          }}
+        >
+          {this.props.fetchedUser &&
+            <Group title='Navigation Example'>
+              <Div>
+                <h1 id='greeting' className='one'> Привет, {`${this.props.fetchedUser.first_name}`} </h1>
                 <br />
-                <h4 id='greeting'> {`${this.state.data.description}`} </h4>
-              </div>
-              <button id='goto' data-to='persik' onClick={this.props.go}> Начать </button>
-            </Div>
-          </Group>}
-      </div>
-    </Panel>
+                <div className='StartScreen'>
+                  <h4 id='greeting'> {`${this.state.data.title}`} </h4>
+                  <br />
+                  <h4 id='greeting'> {`${this.state.data.description}`} </h4>
+                </div>
+                <button id='goto' data-to='persik' onClick={(e) => this.props.go(e)}> Начать </button>
+              </Div>
+            </Group>}
+        </div>
+      </Panel>
     )
   }
 }
