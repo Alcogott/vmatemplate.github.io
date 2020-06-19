@@ -24,7 +24,7 @@ class Home extends React.Component {
   }
 
   async componentDidMount () {
-    const response = await axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
+    const response = await axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/3')
     this.setState({
       data: response.data.startPage
     })
@@ -34,20 +34,32 @@ class Home extends React.Component {
     return (
       <Panel id={this.props.id}>
         <div
-          style={{
-            backgroundImage: `url(${this.state.data.image})`,
-            height: '88vh'
-          }}
+          // style={{
+          //   backgroundImage: `url(${this.state.data.image})`,
+          //   height: '88vh'
+          // }}
         >
           {this.props.fetchedUser &&
             <Group title='Navigation Example'>
               <Div>
-                <h1 id='greeting' className='one'> Привет, {`${this.props.fetchedUser.first_name}`} </h1>
+                <h1 style={{
+                  fontSize: '24px'
+                }}
+                  id='greeting' className='one'> Привет, {`${this.props.fetchedUser.first_name}!`} </h1>
                 <br />
-                <div className='StartScreen'>
+                <div
+                  style={{
+                    maxWidth: '300px',
+                  }}
+                  className='StartScreen'>
                   <h4 id='greeting'> {`${this.state.data.title}`} </h4>
                   <br />
                   <h4 id='greeting'> {`${this.state.data.description}`} </h4>
+                  <img
+                    style={{
+                    width: '200px'
+                  }}
+                    src={this.state.data.image} />
                 </div>
                 <button id='goto' data-to='persik' onClick={(e) => this.props.go(e)}> Начать </button>
               </Div>

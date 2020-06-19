@@ -18,29 +18,12 @@
   flex-direction: column;
 }
 
-#goto {
-  margin-left: 5%;
-  margin-top: 35%;
+#goto, #goto2 {
   height: 50px;
-  width: 90%;
-  background-color: darkred;
-  color: aliceblue;
+  width: 80%;
+  background-color: #231f1e;
+  color: #fff;
   border-radius: 20px;
-  border-color: rgb(207, 5, 5);
-  padding: .8em 1em calc(.8em + 3px);
-  font-size: larger;
-}
-
-#goto2 {
-  margin-left: 5%;
-  margin-top: 18%;
-  height: 50px;
-  width: 90%;
-  background-color: darkred;
-  color: aliceblue;
-  border-radius: 20px;
-  border-color: rgb(207, 5, 5);
-  padding: .8em 1em calc(.8em + 3px);
   font-size: larger;
 }
 
@@ -52,9 +35,5 @@
 
 .answer {
   width: 50%;
-  border: black;
-  border-style: solid;
-  border-radius: 15px;
-  background-color: brown;
-  color: aliceblue;
+  color: #231f1e;
 }

@@ -20,7 +20,9 @@ class Persik extends React.Component {
       questions: [],
       usersAnswers: [],
       checkedValue: {},
-      receivedData: {}
+      receivedData: {},
+      applicationLink: '',
+      communityId: ''
     }
   }
 
@@ -33,9 +35,12 @@ class Persik extends React.Component {
   }
 
   async componentDidMount () {
-    const response = await axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/1')
+    const response = await axios.get('https://dmitrii-shulgin.noname.team:8443/quiz/3')
 
     this.setState({
+      applicationLink: response.data.applicationLink,
+      communityId: response.data.communityId,
+      repostMessage: response.data.repostMessage,
       questions: response.data.questions,
       currentQuestion: 0
     })
@@ -87,13 +92,11 @@ class Persik extends React.Component {
                 currentQuestion: this.state.currentQuestion + 1
               })
             } else {
-              axios.post('https://dmitrii-shulgin.noname.team:8443/quiz/1/think', {
+              axios.post('https://dmitrii-shulgin.noname.team:8443/quiz/3/think', {
                 responses: this.state.usersAnswers
               }).then((res) => {
-                this.setState({ receivedData: res.data })
+                this.props.updateData({ result: res.data, quiz: { link: this.state.applicationLink, community: this.state.communityId, repostMessage: this.state.repostMessage } })
               })
-              this.props.updateData(this.state.receivedData)
-              this.props.go(e)
             }
           }}
         > Ответить

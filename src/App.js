@@ -16,7 +16,8 @@ class App extends React.Component {
       activePanel: 'home',
       fetchedUser: {},
       popout: <ScreenSpinner size='large' />,
-      value: {}
+      quiz: {},
+      result: {}
     }
   }
 
@@ -36,7 +37,7 @@ class App extends React.Component {
   }
 
   updateData = (data) => {
-    this.setState({ value: data })
+    this.setState({ activePanel: 'final', result: data.result, quiz: data.quiz })
   }
 
   go = e => {
@@ -48,7 +49,7 @@ class App extends React.Component {
       <View className='main' activePanel={this.state.activePanel} popout={this.state.popout}>
         <Home id='home' fetchedUser={this.state.fetchedUser} go={this.go} />
         <Persik id='persik' updateData={this.updateData} go={this.go} />
-        <Final id='final' val={this.state.value} go={this.go} />
+        <Final id='final' quiz={this.state.quiz} result={this.state.result} go={this.go} />
       </View>
     )
   }
