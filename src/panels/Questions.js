@@ -14,7 +14,7 @@ import './Style.css'
 
 const osName = platform()
 
-class Questios extends React.Component {
+class Questions extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -121,4 +121,4 @@ class Questios extends React.Component {
   }
 }
 
-export default Questios
+export default Questions
