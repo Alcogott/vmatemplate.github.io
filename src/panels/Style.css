@@ -1,0 +1,48 @@
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90vh;
+  justify-content: space-between;
+}
+
+#greetings {
+  font-size: 24px;
+}
+
+#greetings, #title, #description {
+  text-align: center;
+}
+
+#logo {
+  width: 200px;
+}
+
+#startPage, #questions, #final {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#nextScreen__button, #nextScreen__button, #action {
+  margin-top: 32%;
+  height: 45px;
+  width: 220px;
+  background-color: #231f1e;
+  color: #fff;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+#answers {
+  font-size: 20px;
+}
+
+#actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  max-width: 10vh;
+}

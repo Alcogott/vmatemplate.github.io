@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import bridge from '@vkontakte/vk-bridge'
 import View from '@vkontakte/vkui/dist/components/View/View'
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner'
 import '@vkontakte/vkui/dist/vkui.css'
 
-import Home from './panels/Home'
-import Persik from './panels/Persik'
+import StartPage from './panels/StartPage'
+import Questions from './panels/Questions'
 import Final from './panels/Final'
-import './panels/Persik.css'
+import './panels/Style.css'
 
-const App = () => {
-  const [activePanel, setActivePanel] = useState('home')
-  const [fetchedUser, setUser] = useState(null)
-  const [popout, setPopout] = useState(<ScreenSpinner size='large' />)
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      activePanel: 'home',
+      fetchedUser: {},
+      popout: <ScreenSpinner size='large' />,
+      quiz: {},
+      result: {}
+    }
+  }
 
-  useEffect(() => {
-  // Определение цветовой схемы пользователя
+  async componentDidMount () {
     bridge.subscribe(({ detail: { type, data } }) => {
       if (type === 'VKWebAppUpdateConfig') {
         const schemeAttribute = document.createAttribute('scheme')
@@ -23,27 +29,30 @@ const App = () => {
         document.body.attributes.setNamedItem(schemeAttribute)
       }
     })
-    // Получение данных пользователя
-    async function fetchData () {
-      const user = await bridge.send('VKWebAppGetUserInfo')
-      setUser(user)
-      setPopout(null)
-    }
-    fetchData()
-  }, [])
-
-  // Переход по экранам
-  const go = e => {
-    setActivePanel(e.currentTarget.dataset.to)
+    const user = await bridge.send('VKWebAppGetUserInfo')
+    this.setState({
+      fetchedUser: user,
+      popout: null
+    })
   }
 
-  return (
-    <View className='main' activePanel={activePanel} popout={popout}>
-      <Home id='home' fetchedUser={fetchedUser} go={go} />
-      <Persik id='persik' go={go} />
-      <Final id='final' go={go} />
-    </View>
-  )
+  updateData = (data) => {
+    this.setState({ activePanel: 'final', result: data.result, quiz: data.quiz })
+  }
+
+  go = e => {
+    this.setState({ activePanel: e.currentTarget.dataset.to })
+  }
+
+  render () {
+    return (
+      <View className='main' activePanel={this.state.activePanel} popout={this.state.popout}>
+        <StartPage id='home' fetchedUser={this.state.fetchedUser} go={this.go} />
+        <Questions id='questions' updateData={this.updateData} go={this.go} />
+        <Final id='final' quiz={this.state.quiz} result={this.state.result} go={this.go} />
+      </View>
+    )
+  }
 }
 
 export default App
