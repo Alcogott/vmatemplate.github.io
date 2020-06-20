@@ -4,10 +4,10 @@ import View from '@vkontakte/vkui/dist/components/View/View'
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner'
 import '@vkontakte/vkui/dist/vkui.css'
 
-import Home from './panels/Home'
-import Persik from './panels/Questions'
+import StartPage from './panels/StartPage'
+import Questions from './panels/Questions'
 import Final from './panels/Final'
-import './panels/Persik.css'
+import './panels/Style.css'
 
 class App extends React.Component {
   constructor (props) {
@@ -47,8 +47,8 @@ class App extends React.Component {
   render () {
     return (
       <View className='main' activePanel={this.state.activePanel} popout={this.state.popout}>
-        <Home id='home' fetchedUser={this.state.fetchedUser} go={this.go} />
-        <Persik id='persik' updateData={this.updateData} go={this.go} />
+        <StartPage id='home' fetchedUser={this.state.fetchedUser} go={this.go} />
+        <Questions id='questions' updateData={this.updateData} go={this.go} />
         <Final id='final' quiz={this.state.quiz} result={this.state.result} go={this.go} />
       </View>
     )

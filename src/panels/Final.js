@@ -9,7 +9,7 @@ import Icon24Back from '@vkontakte/icons/dist/24/back'
 import Div from '@vkontakte/vkui/dist/components/Div/Div'
 import PropTypes from 'prop-types'
 
-import './Persik.css'
+import './Style.css'
 
 const osName = platform()
 
@@ -29,9 +29,6 @@ class Final extends React.Component {
   }
 
   render () {
-    console.log('this.props.quiz', this.props.quiz)
-    console.log('this.props.result', this.props.result)
-    bridge.send("VKWebAppJoinGroup", {"group_id": parseInt(this.props.quiz.community, 10)});
     return (
       <Panel id={this.props.id}>
         <PanelHeader
@@ -41,14 +38,39 @@ class Final extends React.Component {
             </PanelHeaderButton>
           }
         >
-          Final
+          Результат
         </PanelHeader>
-        <Div>
-          <h1 id='greeting'>Поздравляем! Ваш кофе - это {this.props.result.title}</h1>
-          <button id='goto' onClick={(e) => {
-            bridge.send("VKWebAppShowWallPostBox", {"message": this.props.quiz.repostMessage.split('|').join(` ${this.props.result.title} `), "attachments": this.props.quiz.link});
-          }}> Поделиться с друзьями </button>
-
+        <Div id='final'>
+          <h1 id='greetings'>Поздравляем! Ваш кофе - это {this.props.result.title}</h1>
+          <Div id='actions'>
+            <button
+              id='action' onClick={(e) => {
+                bridge.send('VKWebAppShowWallPostBox', {
+                  message: this.props.quiz.repostMessage.split('|').join(` ${this.props.result.title} `),
+                  attachments: this.props.quiz.link
+                })
+              }}
+            >
+              Поделиться с друзьями
+            </button>
+            <button
+              id='action' onClick={(e) => {
+                bridge.send('VKWebAppShowStoryBox', {
+                  background_type: 'image',
+                  url: 'https://sun9-65.userapi.com/c850136/v850136098/1b77eb/0YK6suXkY24.jpg'
+                })
+              }}
+            >
+              История
+            </button>
+            <button
+              id='action' onClick={() => {
+                bridge.send('VKWebAppJoinGroup', { group_id: parseInt(this.props.quiz.community, 10) })
+              }}
+            >
+              Подписаться на сообщество
+            </button>
+          </Div>
         </Div>
       </Panel>
     )
