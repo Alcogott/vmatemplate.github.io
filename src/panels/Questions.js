@@ -58,9 +58,7 @@ class Questions extends React.Component {
   goNextScreen = () => {
     if (!this.isEmpty(this.state.checkedValue)) {
       this.setState({
-        usersAnswers: [...this.state.usersAnswers, this.state.checkedValue]
-      })
-      this.setState({
+        usersAnswers: [...this.state.usersAnswers, this.state.checkedValue],
         checkedValue: {},
         buttonState: true
       })
