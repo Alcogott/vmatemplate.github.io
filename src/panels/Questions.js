@@ -47,15 +47,16 @@ class Questions extends React.Component {
       currentQuestion: 0
     })
   }
+
   isEmpty = (obj) => {
-    for (let key in obj) {
-      return false;
+    for (const key in obj) {
+      return false
     }
-    return true;
+    return true
   }
 
   goNextScreen = () => {
-    if(!this.isEmpty(this.state.checkedValue)){
+    if (!this.isEmpty(this.state.checkedValue)) {
       this.setState({
         usersAnswers: [...this.state.usersAnswers, this.state.checkedValue]
       })
