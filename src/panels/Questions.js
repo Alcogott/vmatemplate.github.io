@@ -53,7 +53,6 @@ class Questions extends React.Component {
     })
     if (this.state.currentQuestion < this.state.questions.length - 1) {
       this.setState({
-        ...this.state,
         currentQuestion: this.state.currentQuestion + 1
       })
     } else {
@@ -80,12 +79,14 @@ class Questions extends React.Component {
           <div id='answers'>
             {question.answers.map((answer) => (
               <div id='answer' key={answer.id}>
-                <input
-                  id='answer__input' type='radio' value={answer.title} onChange={() => {
-                    this.setState({ checkedValue: { questionId: question.id, answerId: answer.id } })
-                  }}
-                />
-                <label htmlFor='answer__input'>{answer.title}</label>
+                <label htmlFor={answer.id}>
+                  <input
+                    id={answer.id} type='radio' value={answer.title} onChange={() => {
+                      this.setState({ checkedValue: { questionId: question.id, answerId: answer.id } })
+                    }}
+                  />
+                  {answer.title}
+                </label>
               </div>
             ))}
           </div>
