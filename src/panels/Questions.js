@@ -23,7 +23,8 @@ class Questions extends React.Component {
       checkedValue: {},
       receivedData: {},
       applicationLink: '',
-      communityId: ''
+      communityId: '',
+      buttonState: true
     }
   }
 
@@ -47,27 +48,38 @@ class Questions extends React.Component {
     })
   }
 
+  isEmpty = (obj) => {
+    for (const key in obj) {
+      return false
+    }
+    return true
+  }
+
   goNextScreen = () => {
-    this.setState({
-      usersAnswers: [...this.state.usersAnswers, this.state.checkedValue]
-    })
-    if (this.state.currentQuestion < this.state.questions.length - 1) {
+    if (!this.isEmpty(this.state.checkedValue)) {
       this.setState({
-        currentQuestion: this.state.currentQuestion + 1
+        usersAnswers: [...this.state.usersAnswers, this.state.checkedValue],
+        checkedValue: {},
+        buttonState: true
       })
-    } else {
-      axios.post(constants.URL_THINK, {
-        responses: this.state.usersAnswers
-      }).then((res) => {
-        this.props.updateData({
-          result: res.data,
-          quiz: {
-            link: this.state.applicationLink,
-            community: this.state.communityId,
-            repostMessage: this.state.repostMessage
-          }
+      if (this.state.currentQuestion < this.state.questions.length - 1) {
+        this.setState({
+          currentQuestion: this.state.currentQuestion + 1
         })
-      })
+      } else {
+        axios.post(constants.URL_THINK, {
+          responses: this.state.usersAnswers
+        }).then((res) => {
+          this.props.updateData({
+            result: res.data,
+            quiz: {
+              link: this.state.applicationLink,
+              community: this.state.communityId,
+              repostMessage: this.state.repostMessage
+            }
+          })
+        })
+      }
     }
   }
 
@@ -81,7 +93,8 @@ class Questions extends React.Component {
               <div id='answer' key={answer.id}>
                 <label htmlFor={answer.id}>
                   <input
-                    id={answer.id} type='radio' value={answer.title} onChange={() => {
+                    id={answer.id} name='answer' type='radio' value={answer.title} onChange={() => {
+                      this.setState({ buttonState: false })
                       this.setState({ checkedValue: { questionId: question.id, answerId: answer.id } })
                     }}
                   />
@@ -111,6 +124,7 @@ class Questions extends React.Component {
           </Div>
           <Div id='nextScreen'>
             <button
+              disabled={this.state.buttonState}
               id='nextScreen__button' data-to='final' onClick={() => this.goNextScreen()}
             >
               Ответить

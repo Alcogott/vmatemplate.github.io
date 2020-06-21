@@ -41,7 +41,8 @@ class Final extends React.Component {
           Результат
         </PanelHeader>
         <Div id='final'>
-          <h1 id='greetings'>Поздравляем! Ваш кофе - это {this.props.result.title}</h1>
+          <h1 id='greetings'>Ваш кофе - это {this.props.result.title}</h1>
+          <p id='greetings'>Ваш промокод - T4LZ12P5</p>
           <Div id='actions'>
             <button
               id='action' onClick={(e) => {

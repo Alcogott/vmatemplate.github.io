@@ -25,7 +25,7 @@
   align-items: center;
 }
 
-#nextScreen__button, #nextScreen__button, #action {
+#nextScreen__button, #action {
   margin-top: 32%;
   height: 45px;
   width: 220px;
@@ -33,6 +33,10 @@
   color: #fff;
   border-radius: 15px;
   font-size: 16px;
+}
+
+#nextScreen__button:disabled {
+  background-color: #585858;
 }
 
 #answers {
