@@ -35,6 +35,10 @@
   font-size: 16px;
 }
 
+#nextScreen_button:disabled {
+  background-color: #585858;
+}
+
 #answers {
   font-size: 20px;
 }
